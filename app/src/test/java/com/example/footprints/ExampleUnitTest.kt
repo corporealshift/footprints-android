@@ -1,4 +1,4 @@
-package com.example.friendroid
+package com.example.footprints
 
 import org.junit.Test
 

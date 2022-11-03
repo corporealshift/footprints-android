@@ -1,4 +1,4 @@
-package com.example.friendroid.ui.theme
+package com.example.footprints.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

@@ -1,4 +1,4 @@
-package com.example.friendroid
+package com.example.footprints
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.friendroid.ui.theme.FriendroidTheme
+import com.example.footprints.ui.theme.FriendroidTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
