@@ -32,11 +32,12 @@ fun LoginScreen(
         Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, top = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-        Text(stringResource(R.string.login_host_placeholder))
+        Text("Welcome to Footprints")
         LoginTextField(
             value = loginScreenModel.host,
             onValueChange = { loginScreenModel.updateHost(it) },
             label = R.string.login_host_label,
+            placeholder = R.string.login_host_placeholder,
             onKeyboardDone = {},
         )
         LoginTextField(
@@ -59,11 +60,13 @@ fun LoginTextField(
     onKeyboardDone: () -> Unit,
     value: String,
     label: Int,
+    placeholder: Int = label,
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(stringResource(label)) },
+        placeholder = { Text(stringResource(placeholder)) },
         modifier = Modifier.fillMaxWidth().padding(bottom = 5.dp),
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
