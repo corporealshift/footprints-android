@@ -1,12 +1,24 @@
 package com.example.footprints.ui
 
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 class LoginScreenModel: ViewModel() {
-    private val _loginState = MutableStateFlow(LoginScreenState())
-
-    val loginState: StateFlow<LoginScreenState> = _loginState.asStateFlow()
+    var host by mutableStateOf("")
+        private set
+    var username by mutableStateOf("")
+        private set
+    var password by mutableStateOf("")
+        private set
+    fun updateHost(newHost: String) {
+        host = newHost
+    }
+    fun updateUsername(newUsername: String) {
+        username = newUsername
+    }
+    fun updatePassword(newPassword: String) {
+        password = newPassword
+    }
 }
