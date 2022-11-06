@@ -1,9 +1,10 @@
-package com.example.footprints.ui
+package com.corporealshift.footprints.ui
 
-import androidx.annotation.StringRes
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
@@ -21,13 +22,16 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.footprints.R
+import com.corporealshift.footprints.R
+import org.chromium.net.CronetEngine
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     loginScreenModel: LoginScreenModel = viewModel(),
+    cronetEngine: CronetEngine
 ) {
+
     Column (
         Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, top = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,7 +55,23 @@ fun LoginScreen(
             onPasswordChange = { loginScreenModel.updatePassword(it) },
             onKeyboardDone = {},
         )
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+        ) {
+            Button(
+                modifier = modifier.width(160.dp).height(60.dp).padding(top = 10.dp),
+                onClick= { onLoginButton(cronetEngine, loginScreenModel) }
+            ) {
+                Text(stringResource(R.string.login_submit))
+            }
+        }
     }
+}
+
+fun onLoginButton(cronetEngine: CronetEngine, loginScreenModel: LoginScreenModel) {
+//    cronetEngine.newUrlRequestBuilder()
+    Log.i("login", "host: ${loginScreenModel.host} User: ${loginScreenModel.username}, pw: ${loginScreenModel.password}")
 }
 
 @Composable

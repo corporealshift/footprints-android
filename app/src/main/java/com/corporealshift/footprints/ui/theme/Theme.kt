@@ -1,4 +1,4 @@
-package com.example.footprints.ui.theme
+package com.corporealshift.footprints.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

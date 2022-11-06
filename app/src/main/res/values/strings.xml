@@ -4,6 +4,7 @@
     <string name="login_host_placeholder">e.g. footprints.community</string>
     <string name="login_username_label">Username</string>
     <string name="login_password_label">Password</string>
+    <string name="login_submit">Login</string>
     <string name="login_hide_password">Hide Password</string>
     <string name="login_show_password">Show Password</string>
 </resources>

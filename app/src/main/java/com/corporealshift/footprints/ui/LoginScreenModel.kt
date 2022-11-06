@@ -1,4 +1,4 @@
-package com.example.footprints.ui
+package com.corporealshift.footprints.ui
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
