@@ -1,5 +1,7 @@
 package com.corporealshift.footprints.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -22,14 +24,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.corporealshift.footprints.R
+import com.corporealshift.footprints.prefs.InternalData
 import org.chromium.net.CronetEngine
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     loginScreenModel: LoginScreenModel = viewModel(),
-    cronetEngine: CronetEngine
+    context: Context
 ) {
 
     Column (
@@ -61,7 +66,7 @@ fun LoginScreen(
         ) {
             Button(
                 modifier = modifier.width(160.dp).height(60.dp).padding(top = 10.dp),
-                onClick= { onLoginButton(cronetEngine, loginScreenModel) }
+                onClick= { onLoginButton(context, loginScreenModel) }
             ) {
                 Text(stringResource(R.string.login_submit))
             }
@@ -69,9 +74,8 @@ fun LoginScreen(
     }
 }
 
-fun onLoginButton(cronetEngine: CronetEngine, loginScreenModel: LoginScreenModel) {
-//    cronetEngine.newUrlRequestBuilder()
-    Log.i("login", "host: ${loginScreenModel.host} User: ${loginScreenModel.username}, pw: ${loginScreenModel.password}")
+fun onLoginButton(context: Context, loginScreenModel: LoginScreenModel) {
+    InternalData().saveLoginCredentials(context, loginScreenModel)
 }
 
 @Composable
