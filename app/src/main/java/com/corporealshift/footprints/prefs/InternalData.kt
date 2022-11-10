@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.corporealshift.footprints.models.Creds
 import com.corporealshift.footprints.ui.LoginScreenModel
 
 const val InternalPrefsFile = "footprints.txt"
@@ -17,6 +18,14 @@ class InternalData {
             putString("password", loginScreenModel.password)
             apply()
         }
+    }
+
+    fun getCredentials(context: Context): Creds {
+        val prefs = getSharedPrefs(context)
+        return Creds(
+            prefs.getString("username", "")!!,
+            prefs.getString("password", "")!!,
+        )
     }
 
     private fun getSharedPrefs(context: Context): SharedPreferences {

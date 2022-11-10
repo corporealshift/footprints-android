@@ -27,14 +27,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.corporealshift.footprints.R
+import com.corporealshift.footprints.api.NetworkPublicTimeline
 import com.corporealshift.footprints.prefs.InternalData
+import kotlinx.coroutines.Dispatchers
 import org.chromium.net.CronetEngine
+import java.util.concurrent.Executor
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     loginScreenModel: LoginScreenModel = viewModel(),
-    context: Context
+    context: Context,
+    engine: CronetEngine,
+    executor: Executor,
 ) {
 
     Column (
@@ -66,7 +71,10 @@ fun LoginScreen(
         ) {
             Button(
                 modifier = modifier.width(160.dp).height(60.dp).padding(top = 10.dp),
-                onClick= { onLoginButton(context, loginScreenModel) }
+                onClick= {
+                    onLoginButton(context, loginScreenModel)
+                    loginScreenModel.getAllItems(engine, executor, context)
+                }
             ) {
                 Text(stringResource(R.string.login_submit))
             }
