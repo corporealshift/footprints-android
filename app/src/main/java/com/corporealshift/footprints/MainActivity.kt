@@ -20,6 +20,8 @@ import org.chromium.net.CronetEngine
 import java.util.concurrent.Executors
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.navigation.compose.composable
+import com.corporealshift.footprints.ui.GlobalNetworkFeedScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +34,7 @@ class MainActivity : ComponentActivity() {
                         val initialCreds = InternalData().getCredentials(this)
                         var creds by remember { mutableStateOf(initialCreds) }
                         val navController = rememberNavController()
+                        val activity = this
                         // A surface container using the 'background' color from the theme
                         Surface(
                             modifier = Modifier.fillMaxSize(),
@@ -39,13 +42,17 @@ class MainActivity : ComponentActivity() {
                         ) {
                             if (creds != null) {
                                 NavHost(navController = navController, startDestination = GlobalNetwork.route) {
-
+                                    composable(route = GlobalNetwork.route) {
+                                        GlobalNetworkFeedScreen(
+                                            context = activity,
+                                            engine = cronetBuilder.build(),
+                                            executor = Executors.newSingleThreadExecutor(),
+                                        )
+                                    }
                                 }
                             } else {
                                 LoginScreen(
-                                    context = this,
-                                    engine = cronetBuilder.build(),
-                                    executor = Executors.newSingleThreadExecutor(),
+                                    context = activity,
                                     onCredentialsSaved = { creds = it }
                                 )
                             }

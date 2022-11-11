@@ -30,10 +30,5 @@ class LoginScreenModel: ViewModel() {
         password = newPassword
     }
 
-    fun getAllItems(engine: CronetEngine, executor: Executor, context: Context) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val items = NetworkPublicTimeline(engine, executor, context).getItems()
-            Log.println(Log.WARN, "deets", items.toString())
-        }
-    }
+
 }

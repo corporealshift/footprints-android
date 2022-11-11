@@ -1,8 +1,6 @@
 package com.corporealshift.footprints.ui
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,16 +25,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.corporealshift.footprints.R
 import com.corporealshift.footprints.models.Creds
 import com.corporealshift.footprints.prefs.InternalData
-import org.chromium.net.CronetEngine
-import java.util.concurrent.Executor
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     loginScreenModel: LoginScreenModel = viewModel(),
     context: Context,
-    engine: CronetEngine,
-    executor: Executor,
     onCredentialsSaved: (creds: Creds?) -> Unit,
 ) {
     Column (
@@ -70,7 +64,6 @@ fun LoginScreen(
                 modifier = modifier.width(160.dp).height(60.dp).padding(top = 10.dp),
                 onClick= {
                     onLoginButton(context, loginScreenModel, onCredentialsSaved)
-                    loginScreenModel.getAllItems(engine, executor, context)
                 }
             ) {
                 Text(stringResource(R.string.login_submit))
