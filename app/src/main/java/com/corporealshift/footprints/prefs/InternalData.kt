@@ -20,12 +20,14 @@ class InternalData {
         }
     }
 
-    fun getCredentials(context: Context): Creds {
+    fun getCredentials(context: Context): Creds? {
         val prefs = getSharedPrefs(context)
-        return Creds(
-            prefs.getString("username", "")!!,
-            prefs.getString("password", "")!!,
-        )
+        val username = prefs.getString("username", "")
+        val pw = prefs.getString("password", "")
+        username ?: return null
+        pw ?: return null
+
+        return Creds(username, pw)
     }
 
     private fun getSharedPrefs(context: Context): SharedPreferences {

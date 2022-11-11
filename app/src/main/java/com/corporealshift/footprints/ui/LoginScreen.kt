@@ -24,12 +24,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
 import com.corporealshift.footprints.R
-import com.corporealshift.footprints.api.NetworkPublicTimeline
+import com.corporealshift.footprints.models.Creds
 import com.corporealshift.footprints.prefs.InternalData
-import kotlinx.coroutines.Dispatchers
 import org.chromium.net.CronetEngine
 import java.util.concurrent.Executor
 
@@ -40,8 +37,8 @@ fun LoginScreen(
     context: Context,
     engine: CronetEngine,
     executor: Executor,
+    onCredentialsSaved: (creds: Creds?) -> Unit,
 ) {
-
     Column (
         Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, top = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -72,7 +69,7 @@ fun LoginScreen(
             Button(
                 modifier = modifier.width(160.dp).height(60.dp).padding(top = 10.dp),
                 onClick= {
-                    onLoginButton(context, loginScreenModel)
+                    onLoginButton(context, loginScreenModel, onCredentialsSaved)
                     loginScreenModel.getAllItems(engine, executor, context)
                 }
             ) {
@@ -82,8 +79,9 @@ fun LoginScreen(
     }
 }
 
-fun onLoginButton(context: Context, loginScreenModel: LoginScreenModel) {
+fun onLoginButton(context: Context, loginScreenModel: LoginScreenModel, onCredentialsSaved: (creds: Creds?) -> Unit) {
     InternalData().saveLoginCredentials(context, loginScreenModel)
+    onCredentialsSaved(InternalData().getCredentials(context))
 }
 
 @Composable
