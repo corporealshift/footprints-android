@@ -2,10 +2,7 @@ package com.corporealshift.footprints.ui
 
 import android.content.Context
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
@@ -18,6 +15,7 @@ import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.core.view.ScrollingView
+import com.corporealshift.footprints.ui.posts.TextPostWithComments
 
 @Composable
 fun GlobalNetworkFeedScreen(
@@ -42,6 +40,6 @@ fun FeedItem(
     item: Item,
 ) {
     Row() {
-        Text(item.text)
+        TextPostWithComments(item, modifier = Modifier.padding(horizontal = 0.dp, vertical = 5.dp))
     }
 }
