@@ -24,7 +24,7 @@ fun TextPostWithComments(
         modifier = modifier.fillMaxWidth()
             .background(color = Color(255, 255, 255, ))
     ) {
-        Column {
+        Column(modifier = modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp)) {
             Author(
                 modifier = Modifier.padding(end = 5.dp),
                 avatarURL = item.createdBy.profileImageURL,
