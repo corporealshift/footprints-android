@@ -1,4 +1,4 @@
-package com.corporealshift.footprints.ui
+package com.corporealshift.footprints.ui.timelines;
 
 import android.content.Context
 import android.util.Log
@@ -7,14 +7,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.corporealshift.footprints.api.NetworkPublicTimeline
 import com.corporealshift.friendica.models.Item
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.chromium.net.CronetEngine
 import java.util.concurrent.Executor
 
-class GlobalNetworkFeedModel(): ViewModel() {
+abstract class TimelineModel(): ViewModel() {
+    abstract suspend fun networkItems(
+        context: Context,
+        engine: CronetEngine,
+        executor: Executor): ArrayList<Item>
 
     var items by mutableStateOf(ArrayList<Item>())
         private set
@@ -24,7 +27,7 @@ class GlobalNetworkFeedModel(): ViewModel() {
 
     fun loadAllItems(context: Context, engine: CronetEngine, executor: Executor) {
         viewModelScope.launch(Dispatchers.IO) {
-            val items = NetworkPublicTimeline(engine, executor, context).getItems()
+            val items = networkItems(context, engine, executor)
             Log.println(Log.WARN, "deets", items.toString())
             updateItems(items)
         }

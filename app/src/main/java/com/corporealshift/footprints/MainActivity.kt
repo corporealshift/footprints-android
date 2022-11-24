@@ -21,7 +21,8 @@ import java.util.concurrent.Executors
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.navigation.compose.composable
-import com.corporealshift.footprints.ui.GlobalNetworkFeedScreen
+import com.corporealshift.footprints.ui.timelines.HomeTimelineModel
+import com.corporealshift.footprints.ui.timelines.TimelineScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,13 +41,15 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colors.background
                         ) {
-                            if (creds != null) {
+                            Log.w("CREDS", "Creds: $creds")
+                            if (creds?.username!!.isNotEmpty() && creds?.password!!.isNotEmpty()) {
                                 NavHost(navController = navController, startDestination = GlobalNetwork.route) {
                                     composable(route = GlobalNetwork.route) {
-                                        GlobalNetworkFeedScreen(
+                                        TimelineScreen(
                                             context = activity,
                                             engine = cronetBuilder.build(),
                                             executor = Executors.newSingleThreadExecutor(),
+                                            timelineModel = HomeTimelineModel(),
                                         )
                                     }
                                 }

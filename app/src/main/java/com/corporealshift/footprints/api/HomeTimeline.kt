@@ -4,10 +4,10 @@ import android.content.Context
 import org.chromium.net.CronetEngine
 import java.util.concurrent.Executor
 
-class NetworkPublicTimeline(
+class HomeTimeline(
     engine: CronetEngine,
     executor: Executor,
     context: Context
 ): FriendicaList(engine, executor, context) {
-    override val path: String = "api/statuses/networkpublic_timeline"
+    override val path: String = "api/statuses/home_timeline"
 }
