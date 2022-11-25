@@ -10,7 +10,9 @@ import com.corporealshift.friendica.models.Item
 import org.chromium.net.CronetEngine
 import java.util.concurrent.Executor
 import androidx.compose.ui.unit.dp
+import com.corporealshift.footprints.ui.posts.ResharedPost
 import com.corporealshift.footprints.ui.posts.TextPostWithComments
+import com.corporealshift.friendica.models.ActivityType
 
 @Composable
 fun TimelineScreen(
@@ -34,7 +36,11 @@ fun TimelineScreen(
 fun FeedItem(
     item: Item,
 ) {
+    val rowModifier = Modifier.padding(horizontal = 0.dp, vertical = 5.dp)
     Row() {
-        TextPostWithComments(item, modifier = Modifier.padding(horizontal = 0.dp, vertical = 5.dp))
+        when(item.activityType) {
+            ActivityType.RESHARE -> ResharedPost(item, modifier = rowModifier)
+            else -> TextPostWithComments(item, modifier = rowModifier)
+        }
     }
 }
