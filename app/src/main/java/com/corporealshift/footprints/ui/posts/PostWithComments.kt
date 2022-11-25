@@ -15,7 +15,7 @@ import com.corporealshift.footprints.ui.user.Author
 import com.corporealshift.friendica.models.Item
 
 @Composable
-fun TextPostWithComments(
+fun PostWithComments(
     item: Item,
     modifier: Modifier = Modifier,
 ) {

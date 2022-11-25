@@ -11,7 +11,7 @@ import org.chromium.net.CronetEngine
 import java.util.concurrent.Executor
 import androidx.compose.ui.unit.dp
 import com.corporealshift.footprints.ui.posts.ResharedPost
-import com.corporealshift.footprints.ui.posts.TextPostWithComments
+import com.corporealshift.footprints.ui.posts.PostWithComments
 import com.corporealshift.friendica.models.ActivityType
 
 @Composable
@@ -40,7 +40,7 @@ fun FeedItem(
     Row() {
         when(item.activityType) {
             ActivityType.RESHARE -> ResharedPost(item, modifier = rowModifier)
-            else -> TextPostWithComments(item, modifier = rowModifier)
+            else -> PostWithComments(item, modifier = rowModifier)
         }
     }
 }
