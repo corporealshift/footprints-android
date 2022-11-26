@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.corporealshift.footprints.ui.media.MediaGallery
 import com.corporealshift.footprints.ui.user.Author
 import com.corporealshift.footprints.ui.user.ReshareAuthor
 import com.corporealshift.friendica.models.Item
@@ -40,6 +41,9 @@ fun ResharedPost(item: Item, modifier: Modifier = Modifier) {
                 text = item.text,
                 Modifier.padding(5.dp)
             )
+            if (item.attachments != null) {
+                MediaGallery(item.attachments)
+            }
         }
     }
 }

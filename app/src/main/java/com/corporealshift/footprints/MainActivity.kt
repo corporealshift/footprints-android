@@ -41,7 +41,6 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colors.background
                         ) {
-                            Log.w("CREDS", "Creds: $creds")
                             if (creds?.username!!.isNotEmpty() && creds?.password!!.isNotEmpty()) {
                                 NavHost(navController = navController, startDestination = GlobalNetwork.route) {
                                     composable(route = GlobalNetwork.route) {

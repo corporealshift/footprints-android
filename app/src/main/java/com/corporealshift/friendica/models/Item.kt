@@ -2,7 +2,6 @@ package com.corporealshift.friendica.models
 
 import org.json.JSONArray
 import org.json.JSONObject
-import java.time.LocalDateTime
 
 enum class ActivityType {
     POSTED, RESHARE, LIKE, DISLIKE, COMMENTED
@@ -15,17 +14,20 @@ data class Item(
     val createdBy: User,
     val activityType: ActivityType,
     val originalCreator: User?,
+    val attachments: ArrayList<Media>?,
 )
 
 fun itemFromJSON(json: JSONObject): Item {
-    return Item(
+    val item = Item(
         text = json.getString("text"),
         id = json.getString("id"),
         createdAt = json.getString("created_at"),
         createdBy = userFromJSON(json.getJSONObject("user")),
         activityType = activityTypeFromJSON(json),
-        originalCreator = userFromJSON(json.getJSONObject("friendica_author"))
+        originalCreator = userFromJSON(json.getJSONObject("friendica_author")),
+        attachments = mediaFromJSONArray(json.optJSONArray("attachments"))
     )
+    return item
 }
 
 fun activityTypeFromJSON(json: JSONObject): ActivityType {
@@ -45,4 +47,30 @@ fun itemsFromJSONArray(json: JSONArray): ArrayList<Item> {
         items.add(itemFromJSON(json.getJSONObject(i)))
     }
     return items
+}
+
+fun mediaFromJSONArray(json: JSONArray?): ArrayList<Media> {
+    val media = ArrayList<Media>()
+    if (json != null) {
+        (0 until json.length()).forEach { i ->
+            val mediaItem = mediaFromJSON(json.getJSONObject(i))
+            if (mediaItem != null) {
+                media.add(mediaItem)
+            }
+        }
+    }
+    return media
+}
+
+fun mediaFromJSON(json: JSONObject): Media? {
+    val mimetype = json.getString("mimetype")
+    if (mimetype.contains("image")) {
+        return Photo(
+            json.getString("url"),
+            json.getInt("size"),
+            "",
+            json.getString("mimetype")
+        )
+    }
+    return null
 }

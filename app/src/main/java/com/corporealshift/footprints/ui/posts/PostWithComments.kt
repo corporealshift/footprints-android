@@ -1,5 +1,6 @@
 package com.corporealshift.footprints.ui.posts
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
+import com.corporealshift.footprints.ui.media.MediaGallery
 import com.corporealshift.footprints.ui.user.Author
 import com.corporealshift.friendica.models.Item
 
@@ -34,6 +36,9 @@ fun PostWithComments(
                 text = item.text,
                 Modifier.padding(5.dp)
             )
+            if (item.attachments != null) {
+                MediaGallery(item.attachments)
+            }
         }
     }
 

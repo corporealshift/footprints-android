@@ -28,7 +28,6 @@ abstract class TimelineModel(): ViewModel() {
     fun loadAllItems(context: Context, engine: CronetEngine, executor: Executor) {
         viewModelScope.launch(Dispatchers.IO) {
             val items = networkItems(context, engine, executor)
-            Log.println(Log.WARN, "deets", items.toString())
             updateItems(items)
         }
     }
