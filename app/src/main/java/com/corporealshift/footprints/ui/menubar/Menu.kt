@@ -33,7 +33,7 @@ fun titleizeHostname(hostname: String): String {
     val loweredHostname = hostname.lowercase()
     var domainParts = loweredHostname.split(".")
     // Remove co.uk and similar
-    if (domainParts.contains("co")) {
+    if (domainParts.size >= 3 && domainParts[domainParts.size - 2] == "co") {
         domainParts = domainParts.subList(0, domainParts.size - 2)
     }
     // Remove com, org, io
@@ -44,13 +44,10 @@ fun titleizeHostname(hostname: String): String {
     if (domainParts.size > 3) {
         return hostname
     }
-    if (domainParts.size == 3) {
-        return "${domainParts[0].replaceFirstChar { it.uppercase() }} ${domainParts[1]} ${domainParts[2]}"
-    }
-    if (domainParts.size == 2) {
-        return "${domainParts[0].replaceFirstChar { it.uppercase() }} ${domainParts[1]}"
-    }
-    return domainParts[0].replaceFirstChar { it.uppercase() }
+
+    return domainParts
+        .joinToString(" ")
+        .replaceFirstChar { it.uppercase() }
 }
 
 fun isBoringTLD(tld: String): Boolean {
