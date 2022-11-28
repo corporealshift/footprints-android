@@ -7,7 +7,8 @@ import java.util.concurrent.Executor
 class NetworkPublicTimeline(
     engine: CronetEngine,
     executor: Executor,
-    context: Context
-): FriendicaList(engine, executor, context) {
+    context: Context,
+    hostname: String,
+): FriendicaList(engine, executor, context, hostname) {
     override val path: String = "api/statuses/networkpublic_timeline"
 }

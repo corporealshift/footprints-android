@@ -6,12 +6,12 @@ import com.corporealshift.friendica.models.Item
 import org.chromium.net.CronetEngine
 import java.util.concurrent.Executor
 
-class HomeTimelineModel(): TimelineModel() {
+class HomeTimelineModel(private val hostname: String): TimelineModel() {
     override suspend fun networkItems(
         context: Context,
         engine: CronetEngine,
         executor: Executor
     ): ArrayList<Item> {
-        return HomeTimeline(engine, executor, context).getItems()
+        return HomeTimeline(engine, executor, context, hostname).getItems()
     }
 }

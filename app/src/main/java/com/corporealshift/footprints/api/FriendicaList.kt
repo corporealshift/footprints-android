@@ -21,7 +21,8 @@ import kotlin.coroutines.suspendCoroutine
 abstract class FriendicaList(
     private val engine: CronetEngine,
     private val executor: Executor,
-    private val context: Context) {
+    private val context: Context,
+    private val hostname: String) {
 
     abstract val path: String;
 
@@ -31,7 +32,7 @@ abstract class FriendicaList(
             InternalData().getCredentials(context)?.let {
                 val creds = credsBase64(it)
                 val request = engine.newUrlRequestBuilder(
-                    "https://footprints.community/$path",
+                    "https://$hostname/$path",
                     object : ReadToMemoryCallback() {
                         override fun onSucceeded(
                             request: UrlRequest,

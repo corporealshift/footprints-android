@@ -9,7 +9,7 @@ interface Destination {
     val route: String
 }
 
-object GlobalNetwork: Destination {
+object HomeTimeline: Destination {
     override val icon = Icons.Filled.Place
-    override val route = "global"
+    override val route = "home_timeline"
 }

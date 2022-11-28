@@ -17,7 +17,8 @@ abstract class TimelineModel(): ViewModel() {
     abstract suspend fun networkItems(
         context: Context,
         engine: CronetEngine,
-        executor: Executor): ArrayList<Item>
+        executor: Executor,
+    ): ArrayList<Item>
 
     var items by mutableStateOf(ArrayList<Item>())
         private set

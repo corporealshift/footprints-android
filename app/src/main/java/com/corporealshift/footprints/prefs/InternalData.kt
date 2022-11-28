@@ -30,6 +30,11 @@ class InternalData {
         return Creds(username, pw)
     }
 
+    fun getHostDomain(context: Context): String? {
+        val prefs = getSharedPrefs(context)
+        return prefs.getString("host", null)
+    }
+
     private fun getSharedPrefs(context: Context): SharedPreferences {
         val keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
         val mainKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec)

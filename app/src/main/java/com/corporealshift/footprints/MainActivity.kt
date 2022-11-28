@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,7 +24,9 @@ import org.chromium.net.CronetEngine
 import java.util.concurrent.Executors
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.composable
+import com.corporealshift.footprints.ui.menubar.Menu
 import com.corporealshift.footprints.ui.timelines.HomeTimelineModel
 import com.corporealshift.footprints.ui.timelines.TimelineScreen
 
@@ -41,15 +47,30 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colors.background
                         ) {
-                            if (creds?.username!!.isNotEmpty() && creds?.password!!.isNotEmpty()) {
-                                NavHost(navController = navController, startDestination = GlobalNetwork.route) {
-                                    composable(route = GlobalNetwork.route) {
-                                        TimelineScreen(
-                                            context = activity,
-                                            engine = cronetBuilder.build(),
-                                            executor = Executors.newSingleThreadExecutor(),
-                                            timelineModel = HomeTimelineModel(),
+                            val hostname = InternalData().getHostDomain(this)
+                            if (hostname != null && creds?.username!!.isNotEmpty() && creds?.password!!.isNotEmpty()) {
+
+                                Scaffold(
+                                    topBar = {
+                                        Menu(
+                                            title = hostname,
+                                            onCreatePost = {}
                                         )
+                                    }
+                                ) { contentPadding ->
+                                    NavHost(
+                                        navController = navController,
+                                        startDestination = HomeTimeline.route
+                                    ) {
+                                        composable(route = HomeTimeline.route) {
+                                            TimelineScreen(
+                                                context = activity,
+                                                engine = cronetBuilder.build(),
+                                                executor = Executors.newSingleThreadExecutor(),
+                                                timelineModel = HomeTimelineModel(hostname),
+                                                modifier = Modifier.padding(contentPadding)
+                                            )
+                                        }
                                     }
                                 }
                             } else {

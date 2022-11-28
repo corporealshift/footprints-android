@@ -6,11 +6,11 @@ import com.corporealshift.friendica.models.Item
 import org.chromium.net.CronetEngine
 import java.util.concurrent.Executor
 
-class GlobalNetworkFeedModel(): TimelineModel() {
+class GlobalNetworkFeedModel(private val hostname: String): TimelineModel() {
     override suspend fun networkItems(
         context: Context,
         engine: CronetEngine,
         executor: Executor): ArrayList<Item> {
-        return NetworkPublicTimeline(engine, executor, context).getItems()
+        return NetworkPublicTimeline(engine, executor, context, hostname).getItems()
     }
 }
