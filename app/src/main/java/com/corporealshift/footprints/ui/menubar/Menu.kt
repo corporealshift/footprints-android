@@ -51,7 +51,7 @@ fun titleizeHostname(hostname: String): String {
 }
 
 fun isBoringTLD(tld: String): Boolean {
-    val boringOnes = listOf("com", "org", "net", "gov", "biz", "edu")
+    val boringOnes = listOf("com", "org", "net", "gov", "biz", "edu", "io", "cc")
 
     return boringOnes.contains(tld)
 }
