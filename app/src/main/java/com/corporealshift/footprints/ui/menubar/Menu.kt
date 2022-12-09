@@ -4,24 +4,54 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Menu(title: String, modifier: Modifier = Modifier, onCreatePost: () -> Unit) {
+fun Menu(
+    title: String,
+    showCreate: Boolean,
+    showBack: Boolean,
+    modifier: Modifier = Modifier,
+    onCreatePost: () -> Unit,
+    onBack: () -> Unit,
+) {
     TopAppBar(
         backgroundColor = Color.White,
         contentColor = Color.Black,
         title = { Text(text = titleizeHostname(title)) },
+        navigationIcon = {
+            if (showBack) {
+                IconButton(onClick = onBack) {
+                    Icon(
+                        Icons.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        modifier = modifier.size(30.dp)
+                    )
+                }
+            } else {
+                IconButton(onClick = {}) {
+                    Icon(
+                        Icons.Filled.Menu,
+                        contentDescription = "Menu",
+                        modifier = modifier.size(30.dp)
+                    )
+                }
+            }
+        },
         actions = {
-            IconButton(onClick = onCreatePost) {
-                Icon(
-                    Icons.Filled.AddCircle,
-                    contentDescription = "Create Post",
-                    modifier = modifier.size(30.dp)
-                )
+            if (showCreate) {
+                IconButton(onClick = onCreatePost) {
+                    Icon(
+                        Icons.Filled.AddCircle,
+                        contentDescription = "Create Post",
+                        modifier = modifier.size(30.dp)
+                    )
+                }
             }
         }
     )
