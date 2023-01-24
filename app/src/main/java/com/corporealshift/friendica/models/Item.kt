@@ -1,5 +1,6 @@
 package com.corporealshift.friendica.models
 
+import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -64,7 +65,8 @@ fun mediaFromJSONArray(json: JSONArray?): ArrayList<Media> {
 
 fun mediaFromJSON(json: JSONObject): Media? {
     val mimetype = json.getString("mimetype")
-    if (mimetype.contains("image")) {
+    if (mimetype.contains("image") && json.has("size")) {
+        Log.println(Log.WARN, "image", json.toString())
         return Photo(
             json.getString("url"),
             json.getInt("size"),
