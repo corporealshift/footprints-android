@@ -26,8 +26,8 @@ fun CreatePostScreen(
 ) {
     // Parts of the create screen:
     var title by remember { mutableStateOf("") }
+    var postBody by remember { mutableStateOf("") }
     Column (Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        // title
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = title,
@@ -38,8 +38,21 @@ fun CreatePostScreen(
                 imeAction = ImeAction.Next
             ),
         )
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = postBody,
+            onValueChange = { postBody = it },
+            label = { Text("Post") },
+            singleLine = false,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Send
+            )
+        )
     }
-    // body
     // media items - media selector?
+    // Blog post:
+    // https://proandroiddev.com/implementing-photo-picker-on-android-kotlin-jetpack-compose-326e33e83b85
+    // Example:
+    // https://github.com/tdcolvin/PhotoPickerDemo/blob/master/app/src/main/java/com/hardcoreandroid/photopickerdemo/MainActivity.kt
     // Photos are uploaded separately, then added to posts
 }
